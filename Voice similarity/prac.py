@@ -1,18 +1,8 @@
 import numpy as np
 
-a = list([[1, 2, 3, 4], [5, 6, 7, 8]])
-b = list([[5, 6, 7, 8], [1, 2, 3, 4]])
+np_handler = np.load("raw_data.npz")
+raw_x, raw_y = np_handler['raw_x'], np_handler['raw_y']
+print(np.shape(raw_x))
 
-np.save("a.npy", arr=a)
-np.save("b.npy", arr=b)
-
-np.savez("ab.npz", a=a, b=b)
-
-c = np.load("a.npy")
-d = np.load("b.npy")
-e = np.load("ab.npz")
-
-print("c: ", c)
-print("d: ", d)
-print("e: ", e['a'])
-print("f: ", e['b'])
+raw_x = np.expand_dims(raw_x, -1)
+print(np.shape(raw_x))

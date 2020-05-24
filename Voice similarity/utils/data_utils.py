@@ -9,10 +9,10 @@ import time
 import os
 
 
-def download_and_convert(url, download_dir):
+def download_and_convert(url, download_dir, number):
     yt = pytube.YouTube(url)
     yt_audio = yt.streams.filter(type="audio").first()
-    download_path = yt_audio.download(output_path=download_dir, filename="1")
+    download_path = yt_audio.download(output_path=download_dir, filename=str(number))
     rename_path = download_path[:-4] + ".wav"
 
     tmp = pydub.AudioSegment.from_file(file=download_path, format="mp4")
@@ -22,11 +22,11 @@ def download_and_convert(url, download_dir):
 
 
 def wav_cutter(audio_path, output_dir):
-    file_path_m = int(float(mediainfo(audio_path)['duration']) / 60)
+    file_path_quat_m = int(float(mediainfo(audio_path)['duration']) / 15)
 
     y, sr = librosa.load(path=audio_path, sr=int(mediainfo(audio_path)['sample_rate']))
 
-    cut = len(y) / file_path_m
+    cut = len(y) / file_path_quat_m
     eof = len(y)
 
     t1, t2 = 0, int(cut)
