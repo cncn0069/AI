@@ -14,8 +14,8 @@ model = tu.make_model()
 
 model.summary()
 
-ckpt_path = r"ckpt_path"
-model_save_path = r"model_path"
+ckpt_path = CHECKPOINT PATH
+model_save_path = MODEL SAVE PATH
 
 history = tu.fit_model(
     model=model,

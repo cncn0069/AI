@@ -41,7 +41,7 @@ def wav_cutter(audio_path, output_dir):
         t2 = t2 + int(cut)
 
 
-def audio_melspectrogram(audio_dir):
+def audio_mfcc(audio_dir):
     norm_S_list = list()
     audio_list = os.listdir(audio_dir)
 
@@ -53,12 +53,6 @@ def audio_melspectrogram(audio_dir):
         S = librosa.feature.melspectrogram(y=y, sr=sr)
         log_S = librosa.amplitude_to_db(S=S)
 
-        # librosa.display.specshow(librosa.power_to_db(S, ref=np.max), sr=sr, x_axis='time', y_axis='mel')
-        # plt.title('mel power spectrogram')
-        # plt.colorbar(format='%+02.0f dB')
-        # plt.show()
-        # time.sleep(0.3)
-
         min_level_db = -100
 
         def _normalize(S):
@@ -68,24 +62,3 @@ def audio_melspectrogram(audio_dir):
         norm_S_list.append(norm_S)
 
     return norm_S_list
-
-    # librosa.display.specshow(norm_S, sr=sr, x_axis='time', y_axis='mel')
-    # plt.title('norm mel power spectrogram')
-    # plt.colorbar(format='%+0.1f dB')
-    # plt.show()
-    # time.sleep(0.2)
-    #
-    # mfccs_40 = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
-    # mfccs_80 = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=80)
-    #
-    # librosa.display.specshow(mfccs_40, x_axis="time")
-    # plt.title("MFCC with n_mfcc=40")
-    # plt.show()
-    # time.sleep(0.2)
-    #
-    # librosa.display.specshow(mfccs_80, x_axis="time")
-    # plt.title("MFCC with n_mfcc=80")
-    # plt.show()
-    # time.sleep(0.2)
-    #
-    # return norm_S, sr, mfccs_40, mfccs_80

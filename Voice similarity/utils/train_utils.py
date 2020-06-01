@@ -6,24 +6,24 @@ import tensorflow.keras.backend as K
 def make_model():
     model = models.Sequential([
         layers.MaxPooling2D(input_shape=(128, 1299, 1)),
-        layers.Conv2D(filters=256, kernel_size=(3, 3), activation=activations.relu),
+        layers.Conv2D(filters=256, kernel_size=(3, 3), activation=activations.relu, kernel_initializer="he_normal"),
         layers.MaxPooling2D(),
-        layers.Conv2D(filters=128, kernel_size=(3, 3)),
+        layers.Conv2D(filters=128, kernel_size=(3, 3), kernel_initializer="he_normal"),
         layers.MaxPooling2D(),
-        layers.Conv2D(filters=128, kernel_size=(3, 3)),
+        layers.Conv2D(filters=128, kernel_size=(3, 3), kernel_initializer="he_normal"),
         layers.MaxPooling2D(),
         layers.Dropout(rate=0.5),
 
         layers.Flatten(),
 
-        layers.Dense(512, activation=activations.relu),
-        layers.Dense(512, activation=activations.relu),
+        layers.Dense(512, activation=activations.relu, kernel_initializer="he_normal"),
+        layers.Dense(512, activation=activations.relu, kernel_initializer="he_normal"),
         layers.Dropout(rate=0.5),
-        layers.Dense(256, activation=activations.relu),
-        layers.Dense(256, activation=activations.relu),
+        layers.Dense(256, activation=activations.relu, kernel_initializer="he_normal"),
+        layers.Dense(256, activation=activations.relu, kernel_initializer="he_normal"),
         layers.Dropout(rate=0.5),
 
-        layers.Dense(1, activation=activations.sigmoid)
+        layers.Dense(1, activation=activations.sigmoid, kernel_initializer="he_normal")
     ])
 
     model.compile(
@@ -60,10 +60,10 @@ def fit_model(model, x_train, y_train, x_valid, y_valid, ckpt_path):
             ),
             callbacks.ReduceLROnPlateau(
                 monitor=monitor,
-                factor=0.5,
+                factor=0.8,
                 patience=3,
                 verbose=2,
-                min_lr=1e-3
+                min_lr=1e-4
             )
         ],
         validation_data=(x_valid, y_valid)
@@ -73,14 +73,15 @@ def fit_model(model, x_train, y_train, x_valid, y_valid, ckpt_path):
 
 
 def training_visualization(hist):
+    plt.title(label="blue is training, green is validation")
     plt.subplot(2, 1, 1)
-    plt.plot(hist['acc'])
-    plt.plot(hist['val_acc'])
+    plt.plot(hist['acc'], 'b')
+    plt.plot(hist['val_acc'], 'g')
     plt.xlabel("Epochs")
     plt.ylabel("Accuracies")
 
     plt.subplot(2, 1, 2)
-    plt.plot(hist['loss'])
-    plt.plot(hist['val_loss'])
+    plt.plot(hist['loss'], 'b')
+    plt.plot(hist['val_loss'], 'g')
     plt.xlabel("Epochs")
     plt.ylabel("Losses")
