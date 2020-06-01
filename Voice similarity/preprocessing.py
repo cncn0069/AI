@@ -16,13 +16,13 @@ download_dir = "../../../AI/data/voice recognition/data/"
 # du.wav_cutter(audio_path=audio_path_1, output_dir=download_dir + "1/")
 
 label = list()
-audio_dir_0 = r"C:\Users\admin\Documents\git_clone\AI\Voice similarity\data\0"
-norm_S_list_0 = du.audio_mfcc(audio_dir=audio_dir_0)
+audio_dir_0 = r"0 voice data dir"
+norm_S_list_0 = du.audio_melspectrogram(audio_dir=audio_dir_0)
 for i in range(np.shape(norm_S_list_0)[0]):
     label.append(0)
 
-audio_dir_1 = r"C:\Users\admin\Documents\git_clone\AI\Voice similarity\data\1"
-norm_S_list_1 = du.audio_mfcc(audio_dir=audio_dir_1)
+audio_dir_1 = r"1 voice data dir"
+norm_S_list_1 = du.audio_melspectrogram(audio_dir=audio_dir_1)
 for i in range(np.shape(norm_S_list_1)[0]):
     label.append(1)
 

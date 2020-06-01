@@ -41,7 +41,7 @@ def wav_cutter(audio_path, output_dir):
         t2 = t2 + int(cut)
 
 
-def audio_mfcc(audio_dir):
+def audio_melspectrogram(audio_dir):
     norm_S_list = list()
     audio_list = os.listdir(audio_dir)
 

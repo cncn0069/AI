@@ -14,8 +14,8 @@ model = tu.make_model()
 
 model.summary()
 
-ckpt_path = r"C:\Users\admin\Documents\AI\ckpt\voice_recognition\voice.ckpt"
-model_save_path = r"C:\Users\admin\Documents\AI\model\voice.h5"
+ckpt_path = r"ckpt_path"
+model_save_path = r"model_path"
 
 history = tu.fit_model(
     model=model,
